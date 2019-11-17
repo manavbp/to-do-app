@@ -1,9 +1,10 @@
 import _ from 'lodash';
 import { TYPES } from '../actions/board_actions';
-import { initialAppState } from './initialAppState';
 import { TYPES as LIST_TYPES }  from '../actions/list_actions';
 
-const initialState = initialAppState.boards;
+const initialState = {
+    boards: {}
+};
 
 const addBoard = ( state, payload ) => {
     const { title , description } = payload;
