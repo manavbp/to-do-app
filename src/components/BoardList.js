@@ -66,7 +66,7 @@ export class BoardList extends React.Component {
                                                     {board.title}
                                                 </Typography>
                                                 <Typography variant="body2" color="textSecondary" component="p">
-                                                {board.desc}
+                                                {board.description}
                                             </Typography>
                                         </CardContent>
                                     </Link>
