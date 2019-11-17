@@ -1,17 +1,16 @@
 import _ from 'lodash';
 import { TYPES } from '../actions/board_actions';
+import { initialAppState } from './initialAppState'
 import { TYPES as LIST_TYPES }  from '../actions/list_actions';
 
-const initialState = {
-    boards: {}
-};
+const initialState = initialAppState.boards
 
 const addBoard = ( state, payload ) => {
     const { title , description } = payload;
     if ( !title ) {
         throw new Error( 'You must pass valid properties' );
     }
-    const board_id = Math.random().toString('36');
+    const board_id = payload.board_id || Math.random().toString('36');
     const tasks = {pending: [], completed: []};
     const newBoard = { board_id, title, description, tasks };
     const newState = {...state, [board_id]: newBoard};
@@ -48,7 +47,7 @@ const addListItem = ( state, payload ) => {
     }
     let board = { ...state[board_id] };
     let { pending } = board.tasks;
-    const task_id = Math.random().toString('36');
+    const task_id = payload.task_id || Math.random().toString('36');
     pending = [ ...pending, { task_id, task } ];
     board.tasks={ ...board.tasks, pending };
     let newState = {...state, [board_id]: {...board}};
@@ -66,20 +65,14 @@ const toggleItemCompleted = ( state, payload ) => {
     {
         const position = board.tasks.pending.findIndex((obj) => obj.task_id === task_id);
         const taskObj = board.tasks.pending[position];
-        console.log('position', position);
-        console.log('taskObj', taskObj);
         board.tasks.completed = [ ...board.tasks.completed, {...taskObj} ];
-        console.log('completed', board.tasks.completed);
         board.tasks.pending.splice(position, 1);
     }
     if( isCompleted )
     {
         const position = board.tasks.completed.findIndex((obj) => obj.task_id === task_id);
         const taskObj = board.tasks.completed[position];
-        console.log('position', position);
-        console.log('taskObj', taskObj);
         board.tasks.pending = [ ...board.tasks.pending, {...taskObj} ];
-        console.log('pending', board.tasks.pending);
         board.tasks.completed.splice(position, 1);
     }
     let newState = {...state, [board_id]: {...board}};
