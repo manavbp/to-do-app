@@ -15,7 +15,3 @@ export const {
     TYPES.DELETE_BOARD,
     TYPES.RENAME_BOARD
 );
-
-// FETCH_BOARDS: 'FETCH_BOARDS'
-// TYPES.FETCH_BOARDS
-// fetchBoards
