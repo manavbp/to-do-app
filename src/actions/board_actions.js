@@ -3,7 +3,7 @@ import { createActions } from 'redux-actions';
 export const TYPES = {
     ADD_BOARD: 'ADD_BOARD',
     DELETE_BOARD: 'DELETE_BOARD',
-    RENAME_BOARD: 'RENAME_BOARD',
+    RENAME_BOARD: 'RENAME_BOARD'
 };
 
 export const {
@@ -15,3 +15,7 @@ export const {
     TYPES.DELETE_BOARD,
     TYPES.RENAME_BOARD
 );
+
+// FETCH_BOARDS: 'FETCH_BOARDS'
+// TYPES.FETCH_BOARDS
+// fetchBoards

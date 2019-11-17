@@ -1,96 +1,32 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Typography, TextField, Button, FormControlLabel, Switch } from '@material-ui/core';
+import { Paper, Button } from '@material-ui/core';
+import {ToDoForm} from './ToDoForm';
+import {InCompleteList} from './InCompleteList';
+import {CompletedList} from './CompletedList';
+
 
 export class ToDoList extends React.Component {
-    
-    state = {
-        newBoardItem: '',
-        checked: false
-    }
-
-    handleChangeItem = e => {
-        this.setState({newBoardItem: e.target.value})
-    }
-
-    toggleChecked = (id,item, isCompleted) => {
-        const { toggleItemCompleted } = this.props;
-        toggleItemCompleted({id, item, isCompleted})
-    };
-
-    handleDeleteItem = (id,item) => {
-        const {deleteListItem}=this.props;
-        deleteListItem({id, item});
-    }
-
     render() {
-        const { match, boards, addListItem } = this.props;
-        console.log(this.props);
+        const { match, boards, addListItem, deleteListItem, toggleItemCompleted } = this.props;
         const { boardID } = match.params;
-        const board = boards[boardID];
-        const { items } = board;
-        console.log(board);
-        console.log(items);
-        if (!board) {
-            return <p>Board not found</p>;
-        }
         return (
-            <Grid container>
-                <Grid item xs={12}>
-                    <Link to="/">Go Back</Link>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="h3">To Be Completed</Typography>
-                    <ul>
-                    {
-                        items.pending.map((item)=>
-                            <li>
-                                {item}
-                                <button onClick={()=>this.handleDeleteItem(boardID, item)}>
-                                    Delete
-                                </button>
-                                <FormControlLabel
-                                    control={<Switch size="small" checked={false} onChange={()=>this.toggleChecked(boardID, item, false)} />}
-                                    label="Completed"
-                                />
-                            </li>)
-                    }
-                    </ul>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="h3">Completed</Typography>
-                    <ul>
-                    {
-                        items.completed.map((item)=><li>
-                            <strike>
-                                {item}
-                            </strike>
-                            <button onClick={()=>this.handleDeleteItem(boardID, item)}>
-                                    Delete
-                            </button>
-                            <FormControlLabel
-                                    control={<Switch size="small" checked={true} onChange={()=>this.toggleChecked(boardID, item, true)} />}
-                                    label="Completed"
-                            />
-                        </li>)
-                    }
-                    </ul>
-                </Grid>
-                <Grid item xs={12}>
-                    <form onSubmit={()=>addListItem({id: board.id, item: this.state.newBoardItem})} noValidate autoComplete="off" id="newItem">
-                        <TextField
-                            id="outlined-basic"
-                            value={this.state.newBoardItem}
-                            onChange={this.handleChangeItem}
-                            label="New Board Item"
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </form>
-                    <Button type="submit" form="newItem" value="Submit">Submit</Button>
-                </Grid>
+            <Grid container justify="center" style={{ maxWidth: '600px', marginRight: 'auto', marginLeft: 'auto', marginTop:'50px'}}>
+                <Paper>
+                    <Grid item xs={12}>
+                        <Button style={{marginLeft: '10px', marginTop: '20px'}}><Link to="/">Go Back</Link></Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ToDoForm boardID={boardID} boards={boards} addListItem={addListItem} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <InCompleteList deleteListItem={deleteListItem} boards={boards} boardID={boardID} toggleItemCompleted={toggleItemCompleted}/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <CompletedList deleteListItem={deleteListItem} boards={boards} boardID={boardID} toggleItemCompleted={toggleItemCompleted}/>
+                    </Grid>
+                </Paper>
             </Grid>
         );
     }

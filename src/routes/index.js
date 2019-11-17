@@ -1,6 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
-import { HomeWindow } from '../containers/home';
+import { HomeWindow } from '../containers/HomeWindow';
 import { ToDoWindow } from '../containers/ToDoWindow';
 
 const AppRouter = () => {
