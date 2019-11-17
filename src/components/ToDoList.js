@@ -9,7 +9,7 @@ import {CompletedList} from './CompletedList';
 
 export class ToDoList extends React.Component {
     render() {
-        const { match, boards, addListItem, deleteListItem, toggleItemCompleted } = this.props;
+        const { match, boards, addListItem, deleteListItem, toggleItemCompleted, renameListItem } = this.props;
         const { boardID } = match.params;
         return (
             <Grid container justify="center" style={{ maxWidth: '600px', marginRight: 'auto', marginLeft: 'auto', marginTop:'50px'}}>
@@ -21,10 +21,10 @@ export class ToDoList extends React.Component {
                         <ToDoForm boardID={boardID} boards={boards} addListItem={addListItem} />
                     </Grid>
                     <Grid item xs={12}>
-                        <InCompleteList deleteListItem={deleteListItem} boards={boards} boardID={boardID} toggleItemCompleted={toggleItemCompleted}/>
+                        <InCompleteList deleteListItem={deleteListItem} boards={boards} boardID={boardID} toggleItemCompleted={toggleItemCompleted} renameListItem={renameListItem}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <CompletedList deleteListItem={deleteListItem} boards={boards} boardID={boardID} toggleItemCompleted={toggleItemCompleted}/>
+                        <CompletedList deleteListItem={deleteListItem} boards={boards} boardID={boardID} toggleItemCompleted={toggleItemCompleted} renameListItem={renameListItem}/>
                     </Grid>
                 </Paper>
             </Grid>

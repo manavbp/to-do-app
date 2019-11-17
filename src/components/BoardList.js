@@ -32,15 +32,15 @@ export class BoardList extends React.Component {
         this.setState({openModal: false})
     }
 
-    handleRenameBoard = ( id) => {
+    handleRenameBoard = (board_id) => {
         const { renameBoard }= this.props;
-        renameBoard({id, title: this.state.newBoardTitle})
+        renameBoard({board_id, title: this.state.newBoardTitle})
         this.setState({openModal: false})
     }
 
-    handleDeleteBoard = (id) => {
+    handleDeleteBoard = (board_id) => {
         const { deleteBoard }= this.props;
-        deleteBoard({id});
+        deleteBoard({board_id});
     }
 
     render(){ 
@@ -52,14 +52,14 @@ export class BoardList extends React.Component {
                 <Grid container justify="center" spacing={2} style={{marginTop: '20px', paddingLeft: `20px`, paddingRight: `20px`, marginBottom: '30px'}}>
                     <Typography variant="h3">List of Boards</Typography>
                         {
-                            boardIdArr.map((id)=> {
-                                let board = boards[id];
-                                return <Grid item xs={12} key={id}>
+                            boardIdArr.map((board_id)=> {
+                                let board = boards[board_id];
+                                return <Grid item xs={12} key={board_id}>
                                     <Card>
                                     <CardActionArea>
                                         <Link
-                                            key={id}
-                                            to={`/${id}`}
+                                            key={board_id}
+                                            to={`/${board_id}`}
                                         >
                                             <CardContent>
                                                 <Typography gutterBottom variant="h5" component="h2">
@@ -72,7 +72,7 @@ export class BoardList extends React.Component {
                                     </Link>
                                             </CardActionArea>
                                             <CardActions>
-                                                <Button size="small" color="primary" onClick={()=> this.handleDeleteBoard(id)}>
+                                                <Button size="small" color="primary" onClick={()=> this.handleDeleteBoard(board_id)}>
                                                     Delete
                                                 </Button>
                                                 <Button size="small" color="primary" onClick={()=> this.handleOpenModal()}>
@@ -107,7 +107,7 @@ export class BoardList extends React.Component {
                                                                     />
                                                                 </Grid>
                                                                 <Grid item xs={12}>
-                                                                    <Button type="submit" onClick={()=>this.handleRenameBoard(id)}>Submit</Button>
+                                                                    <Button type="submit" onClick={()=>this.handleRenameBoard(board_id)}>Submit</Button>
                                                                 </Grid>
                                                         </Grid>
                                                         </Paper>

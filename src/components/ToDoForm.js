@@ -7,16 +7,16 @@ import { Typography, TextField, Button, FormControlLabel, Switch } from '@materi
 export class ToDoForm extends React.Component {
     
     state = {
-        newBoardItem: ''
+        newBoardTask: ''
     }
 
-    handleChangeItem = e => {
-        this.setState({newBoardItem: e.target.value})
+    handleChangeTask = e => {
+        this.setState({newBoardTask: e.target.value})
     }
 
-    handleAddItem = ()=> {
+    handleAddTask = ()=> {
         const { addListItem, boardID } = this.props;
-        addListItem({id: boardID, item: this.state.newBoardItem})
+        addListItem({board_id: boardID, task: this.state.newBoardTask})
     }
 
     render() {
@@ -26,13 +26,13 @@ export class ToDoForm extends React.Component {
                     <Typography variant="h4" style={{marginLeft: '20px'}}>Add a To Do Item</Typography>
                 </Grid>
                 <Grid item xs={12} style={{paddingLeft: '20px', paddingRight: '20px', marginTop: '30px'}}>
-                    <form onSubmit={()=> this.handleAddItem()} noValidate autoComplete="off" id="newTask">
+                    <form onSubmit={()=> this.handleAddTask()} noValidate autoComplete="off" id="newTask">
                         <Typography>Enter a task to be done...</Typography>
                         <TextField
                             margin="normal"
                             label="Task"
-                            value={this.state.newBoardItem}
-                            onChange={this.handleChangeItem}
+                            value={this.state.newBoardTask}
+                            onChange={this.handleChangeTask}
                             fullWidth
                             variant="outlined"
                         />

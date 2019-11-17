@@ -23,7 +23,7 @@ export class BoardFrom extends React.Component {
     handleAddBoard = ()=> {
         const { addBoard }= this.props;
         const { newBoardTitle, newBoardDesc } = this.state;
-        addBoard({title: newBoardTitle, desc: newBoardDesc});
+        addBoard({title: newBoardTitle, description: newBoardDesc});
     }
 
     render(){

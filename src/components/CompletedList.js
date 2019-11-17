@@ -7,21 +7,21 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 export class CompletedList extends React.Component {
 
-    toggleChecked = (id,item, isCompleted) => {
+    toggleChecked = (board_id,task_id, isCompleted) => {
         const { toggleItemCompleted } = this.props;
-        toggleItemCompleted({id, item, isCompleted})
+        toggleItemCompleted({board_id,task_id, isCompleted})
     };
 
-    handleDeleteItem = (id,item) => {
+    handleDeleteTask = (board_id,task_id) => {
         const {deleteListItem}=this.props;
-        deleteListItem({id, item});
+        deleteListItem({board_id,task_id});
     }
 
     render() {
         const { boards, boardID } = this.props;
         const board = boards[boardID];
-        const { items } = board;
-        if(items.completed.length>0)
+        const { tasks } = board;
+        if(tasks.completed.length>0)
         return (
             <Grid container justify="center">
                 <Grid item xs={12}>
@@ -30,14 +30,14 @@ export class CompletedList extends React.Component {
                 <Grid item xs={12}>
                     <List>
                     {
-                        items.completed.map((item)=>
-                                <ListItem>
-                                    <ListItemText><strike>{item}</strike></ListItemText>
-                                    <Button onClick={()=>this.handleDeleteItem(boardID, item)} size="small" style={{marginRight: '20px'}}>
+                        tasks.completed.map((taskObj)=>
+                                <ListItem key={taskObj.task_id}>
+                                    <ListItemText><strike>{taskObj.task}</strike></ListItemText>
+                                    <Button onClick={()=>this.handleDeleteTask(boardID, taskObj.task_id)} size="small" style={{marginRight: '20px'}}>
                                         Delete
                                     </Button>
                                     <FormControlLabel
-                                        control={<Switch size="small" checked={true} onChange={()=>this.toggleChecked(boardID, item, true)} />}
+                                        control={<Switch size="small" checked={true} onChange={()=>this.toggleChecked(boardID, taskObj.task_id, true)} />}
                                     />
                                 </ListItem>
                         )
